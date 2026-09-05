@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Ecosystem Portal</title>
+    <link rel="icon" type="image/png" href="/images/nova.png">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,6 +25,30 @@
             --emerald-500: rgba(52, 211, 153, 0.1);
             --border-color: rgba(30, 41, 59, 0.8);
         }
+
+        .logo {
+    position: fixed;
+    top: 20px;
+    left: 30px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    z-index: 1000;
+}
+
+.logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.logo span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #5da9ff;
+}
 
         * {
             box-sizing: border-box;
@@ -263,7 +288,10 @@
     <div class="container">
         <!-- Hero Section -->
         <header>
-            <h1 class="logo">NovaStack</h1>
+            <div class="logo">
+                <img src="/images/nova.png" alt="NovaStack">
+                <span>NovaStack</span>
+            </div>
             <h1>Client Ecosystem Portal</h1>
             <p class="subtitle">Designed, Developed and Managed by ZayneDev.</p>
             
@@ -347,6 +375,16 @@
 
     <!-- Vanilla JavaScript for Search Filtering -->
     <script>
+        fetch("/api/visits", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    page: window.location.pathname
+  })
+}).catch(() => {});
+
         const searchInput = document.getElementById('searchInput');
         const cards = document.querySelectorAll('.card');
         const emptyState = document.getElementById('emptyState');
