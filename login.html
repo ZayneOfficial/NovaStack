@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Make html and body take up the full viewport height */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Use Flexbox on the body to center everything vertically and horizontally */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        .login-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .login-form label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .login-form input {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-section">
+        <h2>Login to Start</h2>
+        <form action="submit" class="login-form">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" autocomplete="email" required> 
+            
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+        </form>
+    </div>
+    <footer>&copy; All Rights Reserved. NovaStack 2026.</footer>
+</body>
+</html>
