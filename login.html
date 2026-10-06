@@ -5,32 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* Make html and body take up the full viewport height */
-        html, body {
-            height: 100%;
-            margin: 0;
+        :root {
+            --bg-deep: #040b1a;
+            --bg-panel: rgba(15, 23, 42, 0.75);
+            --bg-panel-strong: rgba(15, 23, 42, 0.92);
+            --line: rgba(148, 163, 184, 0.2);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --primary: #60a5fa;
+            --primary-strong: #4f46e5;
+            --cyan: #22d3ee;
+            --shadow: 0 24px 60px rgba(15, 23, 42, 0.45);
         }
 
-        /* Use Flexbox on the body to center everything vertically and horizontally */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
         body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.35), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.2), transparent 24%),
+                linear-gradient(135deg, #030712 0%, #0b1120 100%);
+            color: var(--text);
+            padding: 24px;
+        }
+
+        .login-shell {
+            width: 100%;
+            max-width: 920px;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .brand-panel {
+            padding: 44px 40px;
+            background: linear-gradient(160deg, rgba(79, 70, 229, 0.28), rgba(15, 23, 42, 0.95));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--line);
+        }
+
+        .brand-panel .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 28px;
+            width: fit-content;
+        }
+
+        .brand-panel .logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .brand-panel .logo span {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: #dbeafe;
+        }
+
+        .brand-panel h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.1;
+            letter-spacing: -0.05em;
+            margin-bottom: 16px;
+            color: #f8fafc;
+        }
+
+        .brand-panel p {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 420px;
         }
 
         .login-section {
+            padding: 44px 36px;
+            background: rgba(15, 23, 42, 0.88);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 300px;
+            justify-content: center;
+        }
+
+        .login-section h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.04em;
+        }
+
+        .eyebrow {
+            color: var(--muted);
+            margin-bottom: 26px;
+            font-size: 0.95rem;
         }
 
         .login-form {
@@ -40,36 +127,69 @@
         }
 
         .login-form label {
-            margin-top: 10px;
-            margin-bottom: 5px;
-            font-size: 14px;
+            margin: 16px 0 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            letter-spacing: 0.02em;
         }
 
         .login-form input {
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 14px 14px;
+            font-size: 0.96rem;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.86);
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
-        button{
-            background-color: rgba(0, 0, 255, 0.795);
-            padding: 14px;
-            margin-top: 10px;
-            font-size: 16px;
-            font-weight: bold;
+
+        .login-form input:focus {
+            border-color: rgba(96, 165, 250, 0.9);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+        }
+
+        button {
+            margin-top: 24px;
+            background: linear-gradient(135deg, #4f46e5, #60a5fa);
+            padding: 14px 18px;
+            font-size: 1rem;
+            font-weight: 700;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 20px rgba(79, 70, 229, 0.28);
         }
-        button:hover{
-            background-color: blue;
-            transition: 0.3s ease;
-            
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 28px rgba(79, 70, 229, 0.34);
         }
 
         footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #666;
+            margin-top: 22px;
+            font-size: 0.84rem;
+            color: rgba(148, 163, 184, 0.92);
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
+            .login-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-panel {
+                border-right: none;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .brand-panel,
+            .login-section {
+                padding: 28px 22px;
+            }
         }
     </style>
 </head>
