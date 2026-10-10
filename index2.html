@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Ecosystem Portal</title>
+    <link rel="icon" type="image/png" href="./images/nova.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #040b1a;
+            --bg-panel: rgba(15, 23, 42, 0.78);
+            --bg-panel-strong: rgba(17, 24, 39, 0.92);
+            --bg-soft: rgba(148, 163, 184, 0.08);
+            --line: rgba(148, 163, 184, 0.22);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --primary: #60a5fa;
+            --primary-strong: #4f46e5;
+            --cyan: #22d3ee;
+            --success: #34d399;
+            --success-soft: rgba(52, 211, 153, 0.12);
+            --shadow: 0 24px 50px rgba(15, 23, 42, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.35), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.18), transparent 24%),
+                linear-gradient(180deg, var(--bg-deep) 0%, #0b1220 100%);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+        }
+
+        .topbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 24px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18);
+        }
+
+        .brand img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 1.08rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #7dd3fc;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18);
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 999px;
+            opacity: 0.8;
+            transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .nav a:hover {
+            background: rgba(96, 165, 250, 0.14);
+            color: #dbeafe;
+            opacity: 1;
+        }
+
+        .hero {
+            padding: 40px 0 18px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background: rgba(15, 23, 42, 0.5);
+            color: #dbeafe;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+        }
+
+        .hero h1 {
+            margin: 24px auto 16px;
+            max-width: 820px;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            line-height: 0.97;
+            letter-spacing: -0.06em;
+            background: linear-gradient(90deg, #c4b5fd 0%, #7dd3fc 42%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p.subtitle {
+            max-width: 640px;
+            margin: 0 auto 26px;
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+
+        .search-wrap {
+            max-width: 650px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 14px 18px;
+            box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.8);
+        }
+
+        .search-input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            padding: 8px 4px;
+        }
+
+        .search-input::placeholder {
+            color: #64748b;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            max-width: 720px;
+            margin: 32px auto 8px;
+        }
+
+        .stat {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.64));
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 18px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.7rem;
+            letter-spacing: -0.06em;
+            color: #dbeafe;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 40px;
+        }
+
+        @media (min-width: 760px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1080px) {
+            .grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 18px;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.64));
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 26px;
+            box-shadow: var(--shadow);
+            padding: 22px 22px 18px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(96, 165, 250, 0.9), rgba(34, 211, 238, 0.9));
+            opacity: 0.9;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 28px 40px rgba(79, 70, 229, 0.14);
+            border-color: rgba(96, 165, 250, 0.5);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .card-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.24), rgba(34, 211, 238, 0.18));
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            color: #dbeafe;
+            font-weight: 800;
+            font-size: 1.18rem;
+            transition: all 0.25s ease;
+        }
+
+        .card:hover .card-avatar {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.8), rgba(34, 211, 238, 0.8));
+            color: white;
+        }
+
+        .badge {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--success-soft);
+            color: var(--success);
+            border: 1px solid rgba(52, 211, 153, 0.24);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+
+        .card-category {
+            color: var(--muted);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .btn-visit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(96, 165, 250, 0.14));
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .btn-visit:hover {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(96, 165, 250, 0.85));
+            border-color: transparent;
+            box-shadow: 0 12px 20px rgba(79, 70, 229, 0.28);
+            transform: translateY(-1px);
+        }
+
+        .btn-visit svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-visit:hover svg {
+            transform: translateX(3px);
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 42px 18px 8px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 26px 20px 36px;
+            color: rgba(226, 232, 240, 0.92);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 640px) {
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <img src="./images/nova.png" alt="NovaStack logo">
+            <span class="brand-name">NovaStack</span>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <div class="hero-badge">Client ecosystem</div>
+            <h1>Built to help businesses grow with clarity.</h1>
+            <p class="subtitle">Designed, Developed and Managed by NovaStack — a curated view of the companies and partners driving our digital ecosystem.</p>
+
+            <div class="search-wrap">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search client companies...">
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <strong>03</strong>
+                    <span>Active clients</span>
+                </div>
+                <div class="stat">
+                    <strong>100%</strong>
+                    <span>Custom care</span>
+                </div>
+                <div class="stat">
+                    <strong>24/7</strong>
+                    <span>Operational support</span>
+                </div>
+            </div>
+        </section>
+
+        <main>
+            <div class="grid" id="clientGrid">
+                <article class="card" data-name="Apex Solutions">
+                    <div>
+                        <div class="card-top">
+                            <div class="card-avatar">A</div>
+                            <span class="badge">Active</span>
+                        </div>
+                        <h3 class="card-title">Apex Solutions</h3>
+                        <p class="card-category">Fintech</p>
+                    </div>
+                    <a href="login.html" target="_blank" rel="noopener noreferrer" class="btn-visit">
+                        <span>Visit Website</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="card" data-name="Nova Logistics">
+                    <div>
+                        <div class="card-top">
+                            <div class="card-avatar">S</div>
+                            <span class="badge">Active</span>
+                        </div>
+                        <h3 class="card-title">Sasha cleaners</h3>
+                        <p class="card-category">Cleaning Services</p>
+                    </div>
+                    <a href="login.html" target="_blank" rel="noopener noreferrer" class="btn-visit">
+                        <span>Visit Website</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="card" data-name="Echo Health">
+                    <div>
+                        <div class="card-top">
+                            <div class="card-avatar">C</div>
+                            <span class="badge">Active</span>
+                        </div>
+                        <h3 class="card-title">CBS Group</h3>
+                        <p class="card-category">Burial Society</p>
+                    </div>
+                    <a href="https://capetownburialsociety.onrender.com" target="_blank" rel="noopener noreferrer" class="btn-visit">
+                        <span>Visit Website</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                </article>
+
+                <article class="card" data-name="Workflo">
+                    <div>
+                        <div class="card-top">
+                            <div class="card-avatar">W</div>
+                            <span class="badge">Active</span>
+                        </div>
+                        <h3 class="card-title">Workflo</h3>
+                        <p class="card-category">Workspace & Operations</p>
+                    </div>
+                    <a href="login.html" target="_blank" rel="noopener noreferrer" class="btn-visit">
+                        <span>Visit Website</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                </article>
+            </div>
+
+            <div id="emptyState" class="empty-state">No companies found matching your search.</div>
+        </main>
+    </div>
+
+    <footer>&copy; All Rights Reserved. NovaStack 2026.</footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.card');
+        const emptyState = document.getElementById('emptyState');
+
+        searchInput.addEventListener('input', (event) => {
+            const query = event.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+                const companyName = card.getAttribute('data-name').toLowerCase();
+                const matches = companyName.includes(query);
+                card.style.display = matches ? 'flex' : 'none';
+                if (matches) visibleCount++;
+            });
+
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>
