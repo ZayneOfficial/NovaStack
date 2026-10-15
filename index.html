@@ -437,6 +437,36 @@
         font-size: 23px;
     }
 }
+        /* Make WhatsApp button round on phones */
+@media (max-width: 600px) {
+    .whatsapp-float {
+        width: 60px;
+        height: 60px;
+        padding: 0;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        bottom: 20px;
+        right: 15px;
+    }
+
+    /* Hide the text on phones */
+    .whatsapp-text {
+        display: none;
+    }
+
+    /* Center the WhatsApp icon */
+    .whatsapp-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 32px;
+        line-height: 1;
+    }
+}
         
     </style>
 </head>
